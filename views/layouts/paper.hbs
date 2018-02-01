@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Survey Test App</title>
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css"/>
+    <link rel="stylesheet" href="paper.min.css">
+    <link rel="stylesheet" href="survey.css">
+
+</head>
+<body>
+    <div class="header row col flex-spaces border border-primary">        
+        <div class="sm-6">{{title}}</div>
+        <div class="sm-6 text-right">
+            {{#unless atHome}}
+                <a href="/">Home</a> / 
+            {{/unless}}            
+            {{#if isAuthed}}
+                <a href="/logout">Logout</a>
+            {{else}}
+                <a href="/login">Login</a>
+            {{/if}}
+        </div>                 
+    </div>      
+    <div class="container">
+        {{#if errors}}
+            <div class="error row col border border-danger">
+                {{errors}}
+            </div>
+        {{/if}}
+        {{{body}}}
+    </div>
+    <div class="header row col flex-spaces border border-primary">        
+        <div class="sm-12">
+            <a href="/admin/questions">Edit Questions</a>
+        </div>                
+    </div>     
+</body>
+</html>

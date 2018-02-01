@@ -5,7 +5,9 @@ module.exports = function(app, passport) {
 
     app.get('/register', (req, res) => {
         console.log("register page")
-        res.render('register');
+        res.render('register', {
+            title: "Register Account"
+        });
     });
     
     app.post('/register', passport.authenticate('register', {

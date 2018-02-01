@@ -22,7 +22,7 @@ module.exports = (passport) => {
             passwordField: 'password',
             passReqToCallback: true     
         },
-        (req, email, password, done) => {    
+        (req, email, password, done) => {                
             process.nextTick(function () { 
                 const User = require('./models/user')(); 
                 User.findOne({

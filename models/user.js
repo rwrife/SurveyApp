@@ -3,7 +3,11 @@ const sequelize = require('./db');
 
 var registered = false;
 
+var user = null;
+
 module.exports = function() {
+    if(user) return user;
+
     var User = sequelize.define('user', {
         id: {
             autoIncrement: true,
@@ -59,6 +63,8 @@ module.exports = function() {
         });
         registered = true;
     }
+
+    user = User;
  
     return User;
  

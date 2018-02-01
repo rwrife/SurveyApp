@@ -1,0 +1,7 @@
+body {
+    padding:10px;
+}
+
+body > .container {
+    min-height: 600px;
+}
