@@ -22,7 +22,7 @@ module.exports = (passport) => {
             passwordField: 'password',
             passReqToCallback: true     
         },
-        (req, email, password, done) => {                
+        (req, email, password, done) => {  
             process.nextTick(function () { 
                 const User = require('./models/user')(); 
                 User.findOne({
@@ -36,7 +36,7 @@ module.exports = (passport) => {
                     } else {
                         console.log("Account found.");
                         if(bCrypt.compareSync(password, user.password)) {
-                            console.log("Authenticated.");
+                            console.log("Authenticated.");                            
                             return done(null, user);
                         } else {
                             console.log("Password did not match.");

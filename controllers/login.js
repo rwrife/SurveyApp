@@ -12,7 +12,7 @@ module.exports = function(app, passport) {
     });
 
     app.post('/login', passport.authenticate('login', {
-        successRedirect: '/',
+        successReturnToOrRedirect: '/',
         failureRedirect: '/login',
         failureFlash : true
     }));

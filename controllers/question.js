@@ -4,7 +4,10 @@ module.exports = function(app, passport) {
     
 
     app.get('/admin/question', (req, res) => {        
-        res.render('question');
+        res.render('question', {
+            isAuthed: req.isAuthenticated(),
+            title: "Edit Questions"
+        });
     });
 
     app.post('/admin/question',(req, res) => {   
