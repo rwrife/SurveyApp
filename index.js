@@ -15,6 +15,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(__dirname + '/node_modules/papercss/dist'));
+app.use(express.static(__dirname + '/node_modules/font-awesome'));
+app.use(express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/static'));
 

@@ -1,28 +1,27 @@
-<!DOCTYPE html>
-<html>
- 
-<head>
-    <title></title>
-</head>
- 
-<body>
-    <form id="signin" name="signin" method="post" action="/admin/question">
-        <label for="email">Question</label>
-        <input class="text" name="question" type="text" />
-        <input type="hidden" name="question.state" value="adsfasdf"/>
-        <label for="email">Answer 1</label>
-        <input class="text" name="answer" type="text" />
-        <label for="email">Answer 2</label>
-        <input class="text" name="answer" type="text" />
-        <label for="email">Answer 3</label>
-        <input class="text" name="answer" type="text" />
-        <label for="email">Answer 4</label>
-        <input class="text" name="answer" type="text" />
-        <label for="email">Answer 5</label>
-        <input class="text" name="answer" type="text" />                                
-        <input class="btn" type="submit" value="Save" />
-    </form>
- 
-</body>
- 
-</html>
+{{#unless addMode}}
+    <ol>
+    {{#each questions}}
+        <li>{{this.message}}</li>
+    {{/each}}
+    </ol>
+    <a href="/questions?new=1">Add Question</a>
+{{/unless}}
+
+{{#if addMode}}
+<script type="text/javascript">
+    function addAnswer() {
+        $('#answerlist').append("<span class=\"answer\"><label for=\"answer\">Answer</label><input class=\"text\" name=\"answer\" type=\"text\" /></span>");
+        return false;
+    }
+</script>
+<form id="signin" name="signin" method="post" action="/question">
+    <label for="email">Question</label>
+    <input class="text" name="question" type="text" />
+    <span id="answerlist">
+        <span class="answer"><label for="answer">Answer</label><input class="text" name="answer" type="text" /></span>
+    </span>
+    <button onclick="JavaScript:return addAnswer();" popover-bottom="Add an additional answer.">+</button>
+
+    <input class="btn" type="submit" value="Save" />
+</form>
+{{/if}}

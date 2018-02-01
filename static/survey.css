@@ -5,3 +5,11 @@ body {
 body > .container {
     min-height: 600px;
 }
+
+#answerlist > .answer {
+    float:left;
+}
+
+input[name=question] {
+    width: 400px;
+}

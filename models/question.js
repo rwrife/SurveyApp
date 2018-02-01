@@ -1,5 +1,3 @@
-import { BADQUERY } from 'dns';
-
 const Sequelize = require('sequelize');
 const sequelize = require('./db');
 

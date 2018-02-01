@@ -14,20 +14,14 @@ module.exports = function() {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
- 
-        question_id: {
-            type: Sequelize.INTEGER,
-            notEmpty: true
-        },
 
         text: {
             type: Sequelize.STRING,
             notEmpty: true
         }
-
     });
 
-    var Question = require('question')();
+    var Question = require('./question')();
     Answer.belongsTo(Question);
 
     if(!registered) {
@@ -42,5 +36,4 @@ module.exports = function() {
     answer = Answer;
  
     return Answer;
- 
 }
