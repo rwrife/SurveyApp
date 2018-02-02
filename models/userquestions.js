@@ -16,7 +16,9 @@ module.exports = function() {
     var User = require('./user')();    
     
     Question.belongsToMany(User, {through: UserQuestion});
-    UserQuestion.belongsTo(Answer);
+    UserQuestion.belongsTo(Answer, {
+        foreignKey: { primaryKey: true }
+    });
 
     if(!registered) {
         UserQuestion.sequelize.sync().then(function() {

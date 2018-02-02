@@ -56,33 +56,14 @@ module.exports = (passport) => {
         },
         (req, email, password, done) => {    
             process.nextTick(function () {           
-                const User = require('./models/user')(); 
-                User.findOne({
-                    where: {
-                        email: email
-                    }
-                }).then((user) => {
-                    if(user) {
-                        console.log("Account taken.");
-                        return done(null, false, {message: 'Account already taken.'});
-                    } else {
-                        var passwordHash = bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-
-                        User.create({
-                            email: email, 
-                            password: passwordHash, 
-                            firstname: req.body.firstname, 
-                            lastname: req.body.lastname
-                        }).then(function(newUser, created) { 
-                            console.log("User created.");
-                            if (!newUser) {             
-                                return done(null, false);             
-                            } else {
-                                return done(null, newUser);
-                            }        
-                        });                    
-                    }
-                });
+                const RegisterController = require('./controllers/register');
+                return RegisterController.createUser(
+                    email,
+                    req.body.firstname,
+                    req.body.lastname,
+                    password,
+                    done
+                );
             });
         }
     ));

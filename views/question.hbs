@@ -12,7 +12,7 @@
 {{#if addMode}}
 <script type="text/javascript">
     function addAnswer() {
-        $('#answerlist .col:last').before("<div class=\"border sm-3 col\"><span class=\"answer\"><label for=\"answer\">Answer</label><input class=\"text\" name=\"answer\" type=\"text\"/></span><span class=\"css\"><label for=\"answerclass\">CSS Class</label><input class=\"text\" name=\"answerclass\" type=\"text\"/></span><span class=\"secret\"><label for=\"answer\">Secret Message</label><input class=\"text\" name=\"answersecret\" type=\"text\"/></span></div>");
+        $('#answerlist .col:last').before("<div class=\"border sm-3 col\"><span class=\"answer\"><label for=\"answer\">Answer</label><input class=\"text\" name=\"answer\" type=\"text\"/></span><!--<span class=\"css\"><label for=\"answerclass\">CSS Class</label><input class=\"text\" name=\"answerclass\" type=\"text\"/></span>--><span class=\"secret\"><label for=\"answer\">Secret Message</label><input class=\"text\" name=\"answersecret\" type=\"text\"/></span></div>");
         return false;
     }
 </script>
@@ -21,8 +21,8 @@
     <label for="email">Question</label>
     <input class="text" name="question" type="text" />
 
-    <label for="email">CSS Class</label>
-    <input class="text" name="class" type="text" />
+    <!--<label for="email">CSS Class</label>
+    <input class="text" name="class" type="text" />-->
 
     <label for="paperSelects1">Selection Method</label>
     <select name="type">
@@ -33,7 +33,7 @@
     <span id="answerlist" class="row">
         <div class="border sm-3 col">
             <span class="answer"><label for="answer">Answer</label><input class="text" name="answer" type="text"/></span>
-            <span class="css"><label for="answerclass">CSS Class</label><input class="text" name="answerclass" type="text"/></span>
+            <!--<span class="css"><label for="answerclass">CSS Class</label><input class="text" name="answerclass" type="text"/></span>-->
             <span class="secret"><label for="answer">Secret Message</label><input class="text" name="answersecret" type="text"/></span>
         </div>
         <div class="sm-3 col flex-middle">

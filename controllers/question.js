@@ -41,7 +41,7 @@ module.exports = function(app, passport) {
             for(var i=0;i<req.body.answer.length;i++) {
                 answers.push({
                     text:req.body.answer[i],
-                    cssClass:req.body.answerclass[i],
+                    //cssClass:req.body.answerclass[i],
                     secretMessage:req.body.answersecret[i]
                 });
             }
@@ -52,17 +52,16 @@ module.exports = function(app, passport) {
             if(req.body.answer) {
                 answers.push({
                     text:req.body.answer,
-                    cssClass:req.body.answerclass,
+                    //cssClass:req.body.answerclass,
                     secretMessage:req.body.answersecret
                 });
             }
         }
-        console.log(answers)
 
         Questions.create({
             message: req.body.question,
             type:req.body.type,
-            cssClass:req.body.class,
+            //cssClass:req.body.class,
             answers: answers
         }, {
             include: [Answers]
@@ -71,5 +70,4 @@ module.exports = function(app, passport) {
             res.redirect('/questions');       
         });
     });
-
 }

@@ -38,10 +38,10 @@ require('./models/answer')();
 require('./models/userquestions')();
 
 require('./passport')(passport);
-require('./controllers/register')(app, passport);
+require('./controllers/register').init(app, passport);
 require('./controllers/home')(app, passport);
 require('./controllers/login')(app, passport);
-require('./controllers/survey')(app, passport);
+require('./controllers/survey').init(app, passport);
 require('./controllers/logout')(app, passport);
 require('./controllers/question')(app,passport);
  
