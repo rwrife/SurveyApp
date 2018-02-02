@@ -25,6 +25,9 @@ module.exports = function() {
             defaultValue: 'many'
         }
     });
+    
+    var Answers = require('./answer')();
+    Question.hasMany(Answers);
 
     if(!registered) {
         Question.sequelize.sync().then(function() {

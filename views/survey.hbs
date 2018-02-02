@@ -1,1 +1,22 @@
 Welcome to the survey {{name}}!
+
+{{#each questions}}
+<div class="row col sm-12">
+    <div class="sm-12">
+        {{this.message}}
+    </div>
+    <div class="sm-6">
+    {{#each this.answers}}
+        {{this.text}}
+    {{/each}}
+    </div>
+</div>
+{{/each}}
+
+{{#neq 1 q}}
+    <a href="/survey?q={{#minus nextQ 1}}{{/minus}}">Prev Question</a>
+{{/neq}}
+
+{{#neq nextQ q}}
+    <a href="/survey?q={{nextQ}}">Next Question</a>
+{{/neq}}

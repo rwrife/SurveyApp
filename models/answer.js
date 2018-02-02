@@ -14,15 +14,15 @@ module.exports = function() {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-
+        
         text: {
             type: Sequelize.STRING,
             notEmpty: true
         }
     });
 
-    var Question = require('./question')();
-    Answer.belongsTo(Question);
+    //var Question = require('./question')();
+    //Answer.belongsTo(Question);
 
     if(!registered) {
         Answer.sequelize.sync().then(function() {

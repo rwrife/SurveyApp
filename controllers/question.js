@@ -3,8 +3,7 @@ const Sequelize = require('sequelize');
 module.exports = function(app, passport) {
 
     app.get('/questions', (req, res) => {  
-        const Questions     = require('../models/question')();
-        const Answer        = require('../models/answer')();
+        const Questions     = require('../models/question')();    
 
         Questions.findAll().then(questions => {
             res.render('question', {
@@ -13,6 +12,8 @@ module.exports = function(app, passport) {
                 addMode: req.query.new,
                 questions: questions
             });
+        }).catch( err => {            
+            res.redirect('/');
         });                
     });
 
@@ -32,31 +33,30 @@ module.exports = function(app, passport) {
         const Questions = require('../models/question')();
         const Answers = require('../models/answer')();
 
+        var answers = [];
+        
+        if(typeof req.body.answer === 'object') {
+            answers = req.body.answer.map(answer => {
+                return {text: answer};
+            });
+        } else { 
+            if(req.body.answer) {
+                answers = {text:req.body.answer};
+            }
+        }
+        console.log(answers)
+
         Questions.create({
-            message: req.body.question            
+            message: req.body.question,
+            answers: answers
+        }, {
+            include: [Answers]
         }).then(function(newQuestion, created) { 
             console.log("Question created.");
-            if (!newQuestion) {   
-                return done(null, false);             
-            } else {
-                if(typeof req.body.answer === 'Array') {
-                    req.body.answer.foreach(answer => {
-                        Answer.create({
-                            text: answer,
-                            questionId: newQuestion.id
-                        }); //fire and forget??
-                    });
-                } else if (req.body.answer) {
-                    Answer.create({
-                        text: answer,
-                        questionId: newQuestion.id
-                    });
-                }
-                return done(null, newQuestion);
-            }        
+            res.redirect('/questions');       
         }); 
 
-        res.redirect('/questions');
+        
     });
 
 }

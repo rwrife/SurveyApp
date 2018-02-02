@@ -23,9 +23,19 @@ app.use(express.static(__dirname + '/static'));
 app.set('views', './views')
 app.engine('hbs', exphbs({
     extname: '.hbs',
-    defaultLayout: 'paper'
+    defaultLayout: 'paper',
+    helpers: {
+        eq: function (a, b, options) {   if(a == b) { return options.fn(this); } return options.inverse(this);},
+        neq: function (a, b, options) {   if(a != b) { return options.fn(this); } return options.inverse(this);},
+        minus: function(a, b, options) { return a - b; },
+        plus: function(a, b, options) { return a + b; }
+    }    
 }));
 app.set('view engine', '.hbs');
+
+require('./models/user')();
+require('./models/question')();
+require('./models/answer')();
 
 require('./passport')(passport);
 require('./controllers/register')(app, passport);
