@@ -6,7 +6,6 @@ function isAuthed(req, res, next) {
 }
 
 module.exports = function(app, passport) {    
-
     app.put('/answer', isAuthed, (req,res) => {
         var User = require('../models/user')();
         var Answer = require('../models/answer')();
