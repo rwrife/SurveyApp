@@ -55,7 +55,7 @@ module.exports = (passport) => {
             passReqToCallback: true     
         },
         (req, email, password, done) => {    
-                process.nextTick(function () {           
+            process.nextTick(function () {           
                 const User = require('./models/user')(); 
                 User.findOne({
                     where: {

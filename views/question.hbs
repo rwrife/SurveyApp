@@ -1,7 +1,7 @@
 {{#unless addMode}}
     <ol>
     {{#each questions}}
-        <li>{{this.message}}</li>
+        <li>{{this.message}} (<a href="/questions/delete/{{this.id}}">delete</a>)</li>
     {{/each}}
     </ol>
     <a href="/questions?new=1">Add Question</a>
@@ -14,7 +14,7 @@
         return false;
     }
 </script>
-<form id="signin" name="signin" method="post" action="/question">
+<form id="signin" name="signin" method="post" action="/questions">
     <label for="email">Question</label>
     <input class="text" name="question" type="text" />
     <span id="answerlist">
