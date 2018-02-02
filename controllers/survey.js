@@ -12,23 +12,34 @@ module.exports = {
             var Answer = require('../models/answer')();
             var UserQuestion = require('../models/userquestions')();
             var Question = require('../models/question')();
+            
+            if(!req.body.a) res.end();
 
-            Answer.findById(req.body.a).then(answer => {
-                if(!answer) res.end();
-                UserQuestion.destroy({
-                    where: {userId: req.user.id, questionId: answer.questionId }
-                }).then( () => {
-                    User.findById(req.user.id).then(user => {
-                        UserQuestion.create({
-                            userId:user.id,
-                            questionId:answer.questionId,
-                            answerId:answer.id
-                        }).then(record => {
+            var answerIds = JSON.parse(req.body.a); //ehh, body parse isn't working??
+
+            if(answerIds) {
+                Answer.findById(answerIds[0]).then(answer => {
+                    if(!answer) {
+                        res.end();
+                        return;
+                    }
+                    UserQuestion.destroy({
+                        where: {userId: req.user.id, questionId: answer.questionId }
+                    }).then( () => {
+                        User.findById(req.user.id).then(user => {
+                            console.log(answerIds)
+                            answerIds.forEach( aid => {
+                                UserQuestion.create({
+                                    userId:user.id,
+                                    questionId:answer.questionId,
+                                    answerId:aid
+                                });
+                            });
                             res.end();
                         });
                     });
-                });
-            });        
+                }); 
+            }       
         });
 
         app.get('/done', (req, res) => {
@@ -47,24 +58,25 @@ module.exports = {
                 }]
             }).then(questions => { 
                 const question = (qN <= questions.length ? questions.slice(qN-1, qN) : null)[0];
-                var UserQuestion = require('../models/userquestions')();
-                UserQuestion.findOne({
+                var UserQuestion = require('../models/userquestions')();                
+                UserQuestion.findAll({
                     where: {userId:req.user.id, questionId:question.id}
-                }).then( useranswer => {                
-                    var selectedAnswer = useranswer ? useranswer.answerId : null;
-                
-                    res.render('survey', { 
-                        name: req.user ? req.user.firstname : "User",
-                        isAuthed: req.isAuthenticated(),
-                        title: "Customer Survey",
-                        question: question,
-                        nextQ: (qN < questions.length ? qN+1 : qN), //ok, this is weird
-                        q: qN,
-                        selectedAnswer: selectedAnswer
-                    });
+                }).then( useranswers => { 
+                    if(useranswers) {               
+                        var selectedAnswers = useranswers.map( answer => { return answer.answerId; });
+                    
+                        res.render('survey', { 
+                            name: req.user ? req.user.firstname : "User",
+                            isAuthed: req.isAuthenticated(),
+                            title: "Customer Survey",
+                            question: question,
+                            nextQ: (qN < questions.length ? qN+1 : qN), //ok, this is weird
+                            q: qN,
+                            selectedAnswers: selectedAnswers
+                        });
+                    } else res.end();
                 });
             }).catch( err => {
-                console.log(err);
                 res.end();
             });
         });

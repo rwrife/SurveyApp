@@ -4,7 +4,6 @@ module.exports = function(app, passport) {
     const user = require('../models/user')();
 
     app.get('/login', (req, res) => {    
-        //console.log(req.flash('error'))    
         res.render('login', {
             title: "Login",
             errors: req.flash('error')
@@ -14,7 +13,7 @@ module.exports = function(app, passport) {
     app.post('/login', passport.authenticate('login', {
         successReturnToOrRedirect: '/',
         failureRedirect: '/login',
-        failureFlash : true
+        failureFlash : true        
     }));
 
 }

@@ -34,8 +34,6 @@ module.exports = function(app, passport) {
         const Answers = require('../models/answer')();
 
         var answers = [];
-
-        console.log(req.body)
         
         if(typeof req.body.answer === 'object') {
             for(var i=0;i<req.body.answer.length;i++) {

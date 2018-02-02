@@ -14,7 +14,7 @@ app.use(session({ secret: 'secret',resave: true, saveUninitialized:true}));
 app.use(passport.initialize()); 
 app.use(passport.session());
 
-app.use(express.static(__dirname + '/node_modules/papercss/dist'));
+//app.use(express.static(__dirname + '/node_modules/papercss/dist'));
 app.use(express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/static'));
@@ -27,7 +27,8 @@ app.engine('hbs', exphbs({
         eq: function (a, b, options) {   if(a == b) { return options.fn(this); } return options.inverse(this);},
         neq: function (a, b, options) {   if(a != b) { return options.fn(this); } return options.inverse(this);},
         minus: function(a, b, options) { return a - b; },
-        plus: function(a, b, options) { return a + b; }
+        plus: function(a, b, options) { return a + b; },
+        contains: function(a, b, options) { return (a.indexOf(b) >= 0 ? options.fn(this) : options.inverse(this)); }
     }    
 }));
 app.set('view engine', '.hbs');

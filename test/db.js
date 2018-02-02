@@ -14,7 +14,7 @@ console.log = console.info = function(t) {
 };
 
 describe('Datalayer', function() {
-    it('Should create the Sequlize object.', function() {
+    it('Should create the Sequelize object.', function() {
         var db = require('../models/db');
         expect(db).to.not.equal(null);
     });   
@@ -29,7 +29,7 @@ describe('Datalayer', function() {
                 else done(new Error("Failed to create answer."))
             });    
         });
-        
+
         it('Question should create.', function(done) {
             var Question = require('../models/question')();              
             Question.create({

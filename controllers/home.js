@@ -7,7 +7,6 @@ module.exports = function(app, passport) {
                 model: Answers
             }]
         }).then(users => {
-            console.log(users[0]);
             req.session.user = users[0];
         });
 

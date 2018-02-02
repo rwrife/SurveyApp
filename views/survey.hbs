@@ -10,7 +10,6 @@
     </div>    
     {{/eq}}
     
-    
     <div class="row col sm-12">
         <div class="sm-8 question">    
             {{#eq 1 q}}
@@ -23,7 +22,12 @@
                 {{#each question.answers}}
                     <div class="sm-4 col">
                         <label class="paper-radio">
-                            <input type="radio" name="answer" value="{{this.id}}" {{#eq ../selectedAnswer this.id}}checked{{/eq}}><span>{{this.text}}<span>
+                            <input 
+                                type="{{#eq ../question.type 'one'}}radio{{else}}checkbox{{/eq}}" 
+                                name="answer" 
+                                value="{{this.id}}" 
+                                {{#contains ../selectedAnswers this.id}}checked{{/contains}}
+                                ><span>{{this.text}}<span>
                         </label>
                     </div>
                 {{/each}}        
@@ -35,7 +39,6 @@
         <script type="text/javascript">
         $(function() {
             $('input[name=answer]').change( event => {
-                console.log(event.target.value)
                 $('.secret-message').hide();
                 $('#secret_' + event.target.value).show();
             });
@@ -49,11 +52,11 @@
     </div>
     <script type="text/javascript">
         function saveAnswer(next) {
-            var value = $('input[name=answer]:checked').val();
+            var value = $.map($('input[name=answer]:checked'), (e,i) => { return e.value });
             $.ajax({                
                 url: "/answer",
                 type: "PUT",
-                data: "q={{question.id}}&a="+value
+                data: "q={{question.id}}&a=["+value+"]"
             }).done(function() {
                 window.location.href=next;
             });
