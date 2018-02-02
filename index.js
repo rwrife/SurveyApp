@@ -36,6 +36,7 @@ app.set('view engine', '.hbs');
 require('./models/user')();
 require('./models/question')();
 require('./models/answer')();
+require('./models/userquestions')();
 
 require('./passport')(passport);
 require('./controllers/register')(app, passport);

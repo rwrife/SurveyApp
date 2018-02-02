@@ -1,22 +1,75 @@
-Welcome to the survey {{name}}!
+<div class="row" id="survey">
+    {{#eq 1 q}}
+    <div class="row  flex-center"">
+        <div class="sm-12 text-center">
+            <h2>{{name}}, welcome to the survey!</h2>
+        </div>
+        <div class="sm-6 text-center">
+            <h5>Where all our dreams come true.</h5>
+        </div>
+    </div>    
+    {{/eq}}
+    
+    
+    <div class="row col sm-12">
+        <div class="sm-8 question">    
+            {{#eq 1 q}}
+                <h3>First question is...</h3>
+            {{/eq}}        
+            <div class="row sm-12">                
+                {{question.message}}
+            </div>
+            <div class="row form-group">
+                {{#each question.answers}}
+                    <div class="sm-4 col">
+                        <label class="paper-radio">
+                            <input type="radio" name="answer" value="{{this.id}}" {{#eq ../selectedAnswer this.id}}checked{{/eq}}><span>{{this.text}}<span>
+                        </label>
+                    </div>
+                {{/each}}        
+            </div>        
+        </div>
+        <div class="sm-4 image flex-middle">
+            <img src="grizzly.jpg">
+        </div>
+        <script type="text/javascript">
+        $(function() {
+            $('input[name=answer]').change( event => {
+                console.log(event.target.value)
+                $('.secret-message').hide();
+                $('#secret_' + event.target.value).show();
+            });
+        });
+        </script>
+        {{#each question.answers}}
+            {{#if this.secretMessage}}
+                <div id="secret_{{this.id}}" class="secret-message sm-6"><div class="alert alert-secondary">{{this.secretMessage}}</div></div>
+            {{/if}}
+        {{/each}}
+    </div>
+    <script type="text/javascript">
+        function saveAnswer(next) {
+            var value = $('input[name=answer]:checked').val();
+            $.ajax({                
+                url: "/answer",
+                type: "PUT",
+                data: "q={{question.id}}&a="+value
+            }).done(function() {
+                window.location.href=next;
+            });
+            return false;
+        }
+    </script>
+    <div class="row sm-12 flex-left">
+        {{#neq 1 q}}
+            <div class="sm-3"><a href="/survey?q={{#minus q 1}}{{/minus}}">Prev Question</a></div>
+        {{/neq}}
 
-{{#each questions}}
-<div class="row col sm-12">
-    <div class="sm-12">
-        {{this.message}}
+        {{#neq nextQ q}}
+            <div class="sm-3"><a href="/survey?q={{nextQ}}" onclick="Javascript:return saveAnswer('/survey?q={{nextQ}}')">Next Question</a></div>
+        {{else}}
+            <div class="sm-3"><a href="/done" onclick="Javascript:return saveAnswer('/done')">Next</a></div>
+        {{/neq}}
     </div>
-    <div class="sm-6">
-    {{#each this.answers}}
-        {{this.text}}
-    {{/each}}
-    </div>
+
 </div>
-{{/each}}
-
-{{#neq 1 q}}
-    <a href="/survey?q={{#minus nextQ 1}}{{/minus}}">Prev Question</a>
-{{/neq}}
-
-{{#neq nextQ q}}
-    <a href="/survey?q={{nextQ}}">Next Question</a>
-{{/neq}}

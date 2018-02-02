@@ -1,7 +1,16 @@
-<form id="signin" name="signin" method="post" action="/login">
-    <label for="email">Email Address</label>
-    <input class="text" name="email" type="text" />
-    <label for="password">Password</label>
-    <input name="password" type="password" />
-    <input class="btn" type="submit" value="Sign In" />
-</form>
+<div id="login" class="row flex-center flex-middle">
+    <div class="sm-3"><img src="abe.jpg"></div>
+    <div class="sm-3">
+        <form id="signin" name="signin" method="post" action="/login">
+            <label for="email">Email Address</label>
+            <input class="text" name="email" type="text" />
+            <label for="password">Password</label>
+            <input name="password" type="password" />
+            <input class="btn" type="submit" value="Sign In" />
+        </form>
+    </div>
+    <div class="sm-5">
+        <h4>So in order for us to actually track your personal information we need to know who you are and we do that by forcing you to login.  If you don't have an account and really feel like you need one, you can <a href="/register">Register</a> (click that) for one.</a></h4>
+    </div>
+</div>
+

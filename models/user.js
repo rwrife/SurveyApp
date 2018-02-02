@@ -57,9 +57,9 @@ module.exports = function() {
 
     if(!registered) {
         User.sequelize.sync().then(function() {
-            console.log("Register contoller is ready.");
+            console.log("Register model is ready.");
         }).catch(function(err) {     
-            console.log("Register controller has failed: ", err);     
+            console.log("Register model has failed: ", err);     
         });
         registered = true;
     }

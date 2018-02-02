@@ -18,17 +18,22 @@ module.exports = function() {
         text: {
             type: Sequelize.STRING,
             notEmpty: true
-        }
-    });
+        },
 
-    //var Question = require('./question')();
-    //Answer.belongsTo(Question);
+        secretMessage: {
+            type: Sequelize.STRING
+        },
+
+        cssClass: {
+            type: Sequelize.STRING
+        }        
+    });
 
     if(!registered) {
         Answer.sequelize.sync().then(function() {
-            console.log("Answer contoller is ready.");
+            console.log("Answer model is ready.");
         }).catch(function(err) {     
-            console.log("Answer controller has failed: ", err);     
+            console.log("Answer model has failed: ", err);     
         });
         registered = true;
     }

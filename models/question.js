@@ -20,6 +20,10 @@ module.exports = function() {
             notEmpty: true
         },
 
+        cssClass: {
+            type: Sequelize.STRING
+        }, 
+
         type: {
             type: Sequelize.ENUM('one', 'many'),
             defaultValue: 'many'
@@ -31,9 +35,9 @@ module.exports = function() {
 
     if(!registered) {
         Question.sequelize.sync().then(function() {
-            console.log("Question contoller is ready.");
+            console.log("Question model is ready.");
         }).catch(function(err) {     
-            console.log("Question controller has failed: ", err);     
+            console.log("Question model has failed: ", err);     
         });
         registered = true;
     }

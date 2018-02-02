@@ -1,4 +1,6 @@
 {{#unless addMode}}
+    <h2>This is for admins!</h2>
+    <h5>(that's why it's ugly)</h5>
     <ol>
     {{#each questions}}
         <li>{{this.message}} (<a href="/questions/delete/{{this.id}}">delete</a>)</li>
@@ -10,18 +12,39 @@
 {{#if addMode}}
 <script type="text/javascript">
     function addAnswer() {
-        $('#answerlist').append("<span class=\"answer\"><label for=\"answer\">Answer</label><input class=\"text\" name=\"answer\" type=\"text\" /></span>");
+        $('#answerlist .col:last').before("<div class=\"border sm-3 col\"><span class=\"answer\"><label for=\"answer\">Answer</label><input class=\"text\" name=\"answer\" type=\"text\"/></span><span class=\"css\"><label for=\"answerclass\">CSS Class</label><input class=\"text\" name=\"answerclass\" type=\"text\"/></span><span class=\"secret\"><label for=\"answer\">Secret Message</label><input class=\"text\" name=\"answersecret\" type=\"text\"/></span></div>");
         return false;
     }
 </script>
 <form id="signin" name="signin" method="post" action="/questions">
+<div class="form-group"></div>
     <label for="email">Question</label>
     <input class="text" name="question" type="text" />
-    <span id="answerlist">
-        <span class="answer"><label for="answer">Answer</label><input class="text" name="answer" type="text" /></span>
+
+    <label for="email">CSS Class</label>
+    <input class="text" name="class" type="text" />
+
+    <label for="paperSelects1">Selection Method</label>
+    <select name="type">
+        <option value="one" selected>Select one answer</option>
+        <option value="many">Select many answers</option>
+    <select>
+
+    <span id="answerlist" class="row">
+        <div class="border sm-3 col">
+            <span class="answer"><label for="answer">Answer</label><input class="text" name="answer" type="text"/></span>
+            <span class="css"><label for="answerclass">CSS Class</label><input class="text" name="answerclass" type="text"/></span>
+            <span class="secret"><label for="answer">Secret Message</label><input class="text" name="answersecret" type="text"/></span>
+        </div>
+        <div class="sm-3 col flex-middle">
+            <button onclick="Javascript:return addAnswer();" popover-bottom="Add an additional answer.">+</button>
+        </div>
     </span>
-    <button onclick="JavaScript:return addAnswer();" popover-bottom="Add an additional answer.">+</button>
+    
+    
 
     <input class="btn" type="submit" value="Save" />
+    <input class="btn" type="submit" onclick="Javascript:window.location.href='/questions';return false;" value="Cancel" />
+    </div>    
 </form>
 {{/if}}

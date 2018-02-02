@@ -34,29 +34,42 @@ module.exports = function(app, passport) {
         const Answers = require('../models/answer')();
 
         var answers = [];
+
+        console.log(req.body)
         
         if(typeof req.body.answer === 'object') {
-            answers = req.body.answer.map(answer => {
-                return {text: answer};
-            });
+            for(var i=0;i<req.body.answer.length;i++) {
+                answers.push({
+                    text:req.body.answer[i],
+                    cssClass:req.body.answerclass[i],
+                    secretMessage:req.body.answersecret[i]
+                });
+            }
+            //answers = req.body.answer.map(answer => {
+            //    return {text: answer, };
+            //});
         } else { 
             if(req.body.answer) {
-                answers = {text:req.body.answer};
+                answers.push({
+                    text:req.body.answer,
+                    cssClass:req.body.answerclass,
+                    secretMessage:req.body.answersecret
+                });
             }
         }
         console.log(answers)
 
         Questions.create({
             message: req.body.question,
+            type:req.body.type,
+            cssClass:req.body.class,
             answers: answers
         }, {
             include: [Answers]
         }).then(function(newQuestion, created) { 
             console.log("Question created.");
             res.redirect('/questions');       
-        }); 
-
-        
+        });
     });
 
 }

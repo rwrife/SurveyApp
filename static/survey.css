@@ -13,3 +13,10 @@ body > .container {
 input[name=question] {
     width: 400px;
 }
+
+#home img, #login img, #register img, #survey img{ border:none; }
+#home h1 { margin: 0px; }
+#survey h2 { margin:0px; }
+#survey h3 {margin:0px; margin-bottom:5px;}
+
+#survey .secret-message {display:none;}
