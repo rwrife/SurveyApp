@@ -1,6 +1,6 @@
 <div class="row" id="survey">
     {{#eq 1 q}}
-    <div class="row  flex-center"">
+    <div class="row flex-center sm-hide">
         <div class="sm-12 text-center">
             <h2>{{name}}, welcome to the survey!</h2>
         </div>
@@ -11,14 +11,18 @@
     {{/eq}}
     
     <div class="row col sm-12">
-        <div class="sm-8 question">    
-            {{#eq 1 q}}
-                <h3>First question is...</h3>
-            {{/eq}}        
+        <div class="sm-8 question {{question.cssClass}}">   
+            {{#if isReturning}}
+                <h3>Your next question is...</h3>
+            {{else}} 
+                {{#eq 1 q}}
+                    <h3>First question is...</h3>
+                {{/eq}}        
+            {{/if}}
             <div class="row sm-12">                
                 {{question.message}}
             </div>
-            <div class="row form-group">
+            <div class="row form-group answers">
                 {{#each question.answers}}
                     <div class="sm-4 col">
                         <label class="paper-radio">
@@ -33,7 +37,7 @@
                 {{/each}}        
             </div>        
         </div>
-        <div class="sm-4 image flex-middle">
+        <div class="sm-4 image flex-middle sm-hide">
             <img src="grizzly.jpg">
         </div>
         <script type="text/javascript">
@@ -46,7 +50,7 @@
         </script>
         {{#each question.answers}}
             {{#if this.secretMessage}}
-                <div id="secret_{{this.id}}" class="secret-message sm-6"><div class="alert alert-secondary">{{this.secretMessage}}</div></div>
+                <div id="secret_{{this.id}}" class="secret-message sm-6"><div class="alert alert-secondary">{{{this.secretMessage}}}</div></div>
             {{/if}}
         {{/each}}
     </div>
@@ -63,9 +67,9 @@
             return false;
         }
     </script>
-    <div class="row sm-12 flex-left">
+    <div class="row sm-12 col">
         {{#neq 1 q}}
-            <div class="sm-3"><a href="/survey?q={{#minus q 1}}{{/minus}}">Prev Question</a></div>
+            <div class="sm-3 sm-hide"><a href="/survey?q={{#minus q 1}}{{/minus}}">Previous Question</a></div>
         {{/neq}}
 
         {{#neq nextQ q}}

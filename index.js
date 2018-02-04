@@ -14,7 +14,7 @@ app.use(session({ secret: 'secret',resave: true, saveUninitialized:true}));
 app.use(passport.initialize()); 
 app.use(passport.session());
 
-//app.use(express.static(__dirname + '/node_modules/papercss/dist'));
+app.use(express.static(__dirname + '/node_modules/papercss/dist'));
 app.use(express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/static'));

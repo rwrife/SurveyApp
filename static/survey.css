@@ -20,3 +20,18 @@ input[name=question] {
 #survey h3 {margin:0px; margin-bottom:5px;}
 
 #survey .secret-message {display:none;}
+
+.question.singleStack > .answers > .col {
+    width:100%;
+    -webkit-box-flex: 0 0 100%;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    max-width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    .sm-hide { display: none; }
+    body > .container {
+        min-height: auto;
+    }
+}
