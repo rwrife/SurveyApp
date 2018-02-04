@@ -46,8 +46,10 @@ require('./controllers/survey').init(app, passport);
 require('./controllers/logout')(app, passport);
 require('./controllers/question')(app,passport);
  
-app.listen(5000, function(err) {
+var port = process.env.PORT || 1337;
+
+app.listen(port, function(err) {
     if (!err)
-        console.log("Listening at http://localhost:5000"); 
+        console.log("Listening at http://localhost:" + port); 
 });
 
