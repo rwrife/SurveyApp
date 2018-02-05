@@ -25,6 +25,7 @@ module.exports = (passport) => {
         (req, email, password, done) => {  
             process.nextTick(function () { 
                 const User = require('./models/user')(); 
+                
                 User.findOne({
                     where: {
                         email: email
