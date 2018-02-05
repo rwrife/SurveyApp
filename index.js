@@ -3,14 +3,21 @@ var app         = express();
 var passport    = require('passport');
 var session     = require('express-session');
 var bodyParser  = require('body-parser');
+var cookieParser = require('cookie-parser');
 var exphbs      = require('express-handlebars');
 var flash       = require('connect-flash');
 
 app.use(flash());
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(session({ secret: 'secret',resave: true, saveUninitialized:true}));
+app.use(session({ 
+    secret: 'secret',
+    resave: true, 
+    saveUninitialized:true, 
+    cookie : { httpOnly: true, maxAge: 2419200000 }
+}));
 app.use(passport.initialize()); 
 app.use(passport.session());
 
