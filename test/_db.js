@@ -20,6 +20,24 @@ describe('Datalayer', function() {
     });   
 
     describe('Test Models', function() {
+        afterEach(function(done) {
+            //not ideal
+            var Answer = require('../models/answer')();
+            Answer.destroy({
+                where: {
+                    text: 'test'
+                }
+            });
+            var Question = require('../models/question')();
+            Question.destroy({
+                where: {
+                    message: 'test'
+                }
+            });
+
+            done();
+        });
+
         it('Answer should create.', function(done) {
             var Answer = require('../models/answer')();              
             Answer.create({
@@ -31,14 +49,13 @@ describe('Datalayer', function() {
         });
 
         it('Question should create.', function(done) {
-            var Question = require('../models/question')();              
+            var Question = require('../models/question')();
             Question.create({
                 message: 'test'
             }).then( question => {                
                 if(question) done();
                 else done(new Error("Failed to create question."))
-            });
-                    
+            });                    
         });        
     });
 
