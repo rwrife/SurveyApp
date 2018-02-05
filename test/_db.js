@@ -40,5 +40,6 @@ describe('Datalayer', function() {
             });
                     
         });        
-    });    
+    });
+
 });

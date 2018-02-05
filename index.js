@@ -23,7 +23,6 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/node_modules/papercss/dist'));
 app.use(express.static(__dirname + '/node_modules/jquery/dist'));
-app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/static'));
 
 app.set('views', './views')
@@ -48,7 +47,7 @@ require('./models/userquestions')();
 require('./passport')(passport);
 require('./controllers/register').init(app, passport);
 require('./controllers/home')(app, passport);
-require('./controllers/login')(app, passport);
+require('./controllers/login').init(app, passport);
 require('./controllers/survey').init(app, passport);
 require('./controllers/logout')(app, passport);
 require('./controllers/question')(app,passport);

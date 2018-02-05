@@ -24,28 +24,8 @@ module.exports = (passport) => {
         },
         (req, email, password, done) => {  
             process.nextTick(function () { 
-                const User = require('./models/user')(); 
-
-                User.findOne({
-                    where: {
-                        email: email
-                    }
-                }).then((user) => {                
-                    if(!user) {
-                        console.log("Account not found.");
-                        return done(null, false, {message: 'Account not found.'});
-                    } else {
-                        console.log("Account found.");
-                        if(bCrypt.compareSync(password, user.password)) {
-                            console.log("Authenticated.");                                                        
-                            return done(null, user);
-                        } else {
-                            console.log("Password did not match.");
-                            return done(null, false, {message: "Invalid password."});
-                        }
-                        
-                    }
-                });
+                const LoginController = require('./controllers/login');
+                return LoginController.login(email, password, done);
             });
         }
     ));    

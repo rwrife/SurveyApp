@@ -29,9 +29,17 @@ input[name=question] {
     max-width: 100%;
 }
 
+@media only screen and (max-width: 992px) {
+    .md-hide { display: none; }
+}
+
 @media only screen and (max-width: 768px) {
     .sm-hide { display: none; }
     body > .container {
         min-height: auto;
     }
+}
+
+@media only screen and (max-width: 480px) {
+    .xsm-hide { display: none; }
 }
