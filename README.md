@@ -10,3 +10,5 @@ or
 ```
 npm test
 ```
+
+Notes: It won't run in a server farm due to the passport storing the session in local memory, so this is a single instance only app.  Ideally you could use cookies or redis cache to share the session across server clusters.  Needs more unit tests as well, controller and model exports need to be broken out into functions for visibility to Mocha.
